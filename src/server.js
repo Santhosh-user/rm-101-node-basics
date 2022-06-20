@@ -58,7 +58,7 @@ app.get("/users:id",async(req,res)=>{
     }
 })
 
-app.post("/users:id",async(req,res)=>{
+app.post("/users",async(req,res)=>{
     try{
         var userbidy = create(req.body)
         return res.send(userbidy)
