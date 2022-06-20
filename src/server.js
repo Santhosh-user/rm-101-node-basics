@@ -2,6 +2,7 @@
 const express = require("express")
 let app = express();
 const mongoose = require("mongoose")
+const ppl = require("./assets/user.json")
 
 const path = require("path")
 
@@ -47,9 +48,14 @@ app.get("/users",async(req,res)=>{
     }
 })
 
-app.get("/users:id",async(req,res)=>{
+app.get("/users/:id",async(req,res)=>{
     try{
-        var userbid = await User.findById(req.params.id).lean().exec()
+        var userbid = ppl.filter((e)=>{
+            if(e.id==req.params.id){
+               return true
+            }
+           
+        })
         return res.send(userbid)
     }
     catch(err){
@@ -57,9 +63,9 @@ app.get("/users:id",async(req,res)=>{
     }
 })
 
-app.post("/users:id",async(req,res)=>{
+app.post("/users/:id",async(req,res)=>{
     try{
-        var userbidy = await User.findByIdAndUpdate(req.params.id,req.body).lean().exec()
+        var userbidy = create(req.body)
         return res.send(userbidy)
     }
     catch(err){
@@ -73,7 +79,7 @@ app.post("/users:id",async(req,res)=>{
 
 app.listen(8000,async ()=>{
     try{
-       
+    //    await connect()
         console.log("listening on port 8000")
     }
     catch(err){
