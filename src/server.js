@@ -7,9 +7,9 @@ const path = require("path")
 
 // Code here
 
-const connect = () =>{
-    return mongoose.connect("http://localhost:3000/user.json")
-}
+// const connect = () =>{
+//     return mongoose.connect("http://localhost:3000/user.json")
+// }
 
 const UserSchema = new mongoose.Schmea({
     "id": {type: Number},
@@ -24,8 +24,9 @@ const UserSchema = new mongoose.Schmea({
 const User = mongoose.model("user", UserSchema)
 
 app.get("/",async(req,res)=>{
-    const user = await User.find().lean().exec()
-    return res.send(user)
+    try{
+        
+    }
 })
 
 app.get("/",async(req,res)=>{
@@ -37,7 +38,7 @@ app.get("/",async(req,res)=>{
 
 app.listen(8000,async ()=>{
     try{
-        await connect()
+       
         console.log("listening on port 8000")
     }
     catch(err){
