@@ -1,8 +1,8 @@
 // install and import express
-
+const express = require("express")
 let app = express();
 const mongoose = require("mongoose")
-const express = require("express")
+
 const path = require("path")
 
 // Code here
@@ -13,7 +13,7 @@ const path = require("path")
 
 app.use(express.json())
 
-const UserSchema = new mongoose.Schmea({
+const UserSchema = new mongoose.Schema({
     "id": {type: Number},
     "first_name": {type: String},
     "last_name": {type: String},
@@ -49,15 +49,23 @@ app.get("/users",async(req,res)=>{
 
 app.get("/users:id",async(req,res)=>{
     try{
-        var userbid = await user.
-
-        })
+        var userbid = await User.findById(req.params.id).lean().exec()
+        return res.send(userbid)
     }
     catch(err){
         return res.send(err)
     }
 })
 
+app.post("/users:id",async(req,res)=>{
+    try{
+        var userbidy = await User.findByIdAndUpdate(req.params.id,req.body).lean().exec()
+        return res.send(userbidy)
+    }
+    catch(err){
+        return res.send(err)
+    }
+})
 
 
 
