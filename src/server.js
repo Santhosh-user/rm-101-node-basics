@@ -48,14 +48,9 @@ app.get("/users",async(req,res)=>{
     }
 })
 
-app.get("/users/:id",async(req,res)=>{
+app.get("/users:id",async(req,res)=>{
     try{
-        var userbid = ppl.filter((e)=>{
-            if(e.id==req.params.id){
-               return true
-            }
-           
-        })
+        var userbid = await User.findById(req.params.id).lean().exec()
         return res.send(userbid)
     }
     catch(err){
@@ -63,7 +58,7 @@ app.get("/users/:id",async(req,res)=>{
     }
 })
 
-app.post("/users/:id",async(req,res)=>{
+app.post("/users:id",async(req,res)=>{
     try{
         var userbidy = create(req.body)
         return res.send(userbidy)
